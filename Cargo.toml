@@ -1,12 +1,19 @@
 [package]
-name = "optvec"
+name = "optcollection"
 authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
 version = "0.1.0"
 edition = "2018"
+description = "Tools for working with `Option<T>` where `T` is a collection type"
+homepage = "https://github.com/dcormier/optcollection-rs"
+repository = "https://github.com/dcormier/optcollection-rs"
+license= "Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+[dev-dependencies]
+maplit = "1"
