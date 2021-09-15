@@ -4,10 +4,11 @@ authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2018"
 description = "Tools for working with `Option<T>` where `T` is a collection type"
-homepage = "https://github.com/dcormier/optcollection-rs"
+homepage = "https://docs.rs/optcollection/"
+documentation = "https://docs.rs/optcollection/"
 repository = "https://github.com/dcormier/optcollection-rs"
 license= "Apache-2.0"
 
