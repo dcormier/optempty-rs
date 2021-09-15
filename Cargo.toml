@@ -4,7 +4,7 @@ authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2018"
 description = "Tools for working with `Option<T>` where `T` is a collection type"
 homepage = "https://docs.rs/optcollection/"
