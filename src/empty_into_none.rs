@@ -1,25 +1,26 @@
-use crate::is_empty::IsEmpty;
+use super::is_empty::IsEmpty;
 
 /// A trait to add the `empty_into_none()` method to `Option<T>` (where `T`
-/// implements [IsEmpty]) to convert `Some` with an empty [IsEmpty] into `None`.
+/// implements [`IsEmpty`]) to convert `Option::Some` with an empty [`IsEmpty`]
+/// into `Option::None`.
 ///
 /// `IsEmpty` is implemented for the standard collections.
 ///
 /// # Examples
 ///
-/// `Some` with an empty `Vec` becomes `None`.
+/// `Option::Some` with an empty `Vec` becomes `Option::None`.
 /// ```
-/// # use optcollection::EmptyIntoNone;
-/// #
+/// use optcollection::EmptyIntoNone;
+///
 /// let some: Option<Vec<&str>> = Some(vec![]);
 /// let none = some.empty_into_none();
 /// assert_eq!(None, none);
 /// ```
 ///
-/// `Some` with a non-empty `Vec` remains unchanged.
+/// `Option::Some` with a non-empty `Vec` remains unchanged.
 /// ```
-/// # use optcollection::EmptyIntoNone;
-/// #
+/// use optcollection::EmptyIntoNone;
+///
 /// let some = Some(vec!["a", "b", "c"]);
 /// let still_some = some.clone().empty_into_none();
 /// assert_eq!(some, still_some);
@@ -27,17 +28,97 @@ use crate::is_empty::IsEmpty;
 ///
 /// `None` remains unchanged.
 /// ```
-/// # use optcollection::EmptyIntoNone;
-/// #
+/// use optcollection::EmptyIntoNone;
+///
 /// let none: Option<Vec<&str>> = None;
 /// let still_none = none.empty_into_none();
 /// assert_eq!(None, still_none);
 /// ```
 ///
+/// Works out of the box with all types from [`std::collections`]:
+///
+/// `BinaryHeap`
+/// ```
+/// use std::collections::BinaryHeap;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<BinaryHeap<&str>> = Some(BinaryHeap::new());
+/// let none = some.empty_into_none();
+/// assert!(none.is_none());
+/// ```
+///
+/// `BTreeMap`
+/// ```
+/// use std::collections::BTreeMap;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<BTreeMap<&str, &str>> = Some(BTreeMap::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `BTreeSet`
+/// ```
+/// use std::collections::BTreeSet;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<BTreeSet<&str>> = Some(BTreeSet::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `HashMap`
+/// ```
+/// use std::collections::HashMap;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<HashMap<&str, &str>> = Some(HashMap::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `HashSet`
+/// ```
+/// use std::collections::HashSet;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<HashSet<&str>> = Some(HashSet::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `LinkedList`
+/// ```
+/// use std::collections::LinkedList;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<LinkedList<&str>> = Some(LinkedList::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `VecDeque`
+/// ```
+/// use std::collections::VecDeque;
+///
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<VecDeque<&str>> = Some(VecDeque::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
 /// [IsEmpty]: crate::is_empty::IsEmpty
+/// [std::collections]: https://doc.rust-lang.org/std/collections/
 pub trait EmptyIntoNone {
-    /// If the value is `Some` with an empty collection, returns `None`.
-    /// Otherwise the original value is returned.
+    /// If the value is `Option::Some` with an empty collection, returns
+    /// `Option::None`. Otherwise the original value is returned.
     fn empty_into_none(self) -> Self;
 }
 
@@ -52,7 +133,9 @@ where
 
 #[cfg(test)]
 mod test {
-    use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet, LinkedList, VecDeque};
+    use std::collections::{
+        BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque,
+    };
 
     use maplit::*;
 
@@ -60,14 +143,39 @@ mod test {
 
     fn check<C>(col: Option<C>, should_be_some: bool)
     where
-        C: crate::is_empty::IsEmpty + std::fmt::Debug + Clone + Eq,
+        C: crate::is_empty::IsEmpty + std::fmt::Debug + Clone,
     {
+        let into_none = col.clone().empty_into_none();
         if should_be_some {
-            let expect = col.clone();
-            assert_eq!(expect, col.empty_into_none());
+            assert!(
+                into_none.is_some(),
+                "Should be Some: {:?}.empty_into_none()\n\
+                 Got:            {:?}",
+                col,
+                into_none,
+            );
         } else {
-            assert_eq!(None, col.empty_into_none());
+            assert!(
+                into_none.is_none(),
+                "Should be None: {:?}.empty_into_none()\n\
+                 Got:            {:?}",
+                col,
+                into_none,
+            );
         }
+    }
+
+    #[test]
+    fn binary_heap() {
+        let mut bh = BinaryHeap::<&str>::new();
+        bh.push("a");
+        check(Some(bh.clone()), true);
+
+        bh.push("b");
+        bh.push("c");
+        check(Some(bh), true);
+        check(Some(BinaryHeap::<&str>::new()), false);
+        check(Option::<BinaryHeap<&str>>::None, false);
     }
 
     #[test]

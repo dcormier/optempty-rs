@@ -1,7 +1,8 @@
-//! Helpers for dealing with `Option`s of collections.
+//! Helpers for dealing with [`Option`]s of collections.
 //!
-//! See usage examples at [EmptyIntoNone] and [IsEmpty].
+//! See usage examples at [`EmptyIntoNone`] and [`IsEmpty`].
 //!
+//! [Option]: std::option::Option
 //! [EmptyIntoNone]: crate::empty_into_none::EmptyIntoNone
 //! [IsEmpty]: crate::is_empty::IsEmpty
 
