@@ -12,6 +12,13 @@ pub trait IsEmpty {
 /// Just wraps the existing `is_empty(&self)` method on the type.
 // Because you can't spell `simple` without `impl`.
 macro_rules! simple_is_empty {
+    ($type:ty) => {
+        impl $crate::is_empty::IsEmpty for $type {
+            fn is_empty(&self) -> bool {
+                <$type>::is_empty(self)
+            }
+        }
+    };
     ($type:ident; $($args:tt)*) => {
         impl<$($args)*> $crate::is_empty::IsEmpty for $type<$($args)*> {
             fn is_empty(&self) -> bool {
@@ -31,6 +38,23 @@ simple_is_empty!(HashSet; T);
 simple_is_empty!(LinkedList; T);
 simple_is_empty!(Vec; T);
 simple_is_empty!(VecDeque; T);
+
+// Some other things from the stdlib.
+// Implement more from here: https://doc.rust-lang.org/std/?search=is_empty
+
+simple_is_empty!(String);
+
+impl IsEmpty for &str {
+    fn is_empty(&self) -> bool {
+        str::is_empty(self)
+    }
+}
+
+impl<T> IsEmpty for &[T] {
+    fn is_empty(&self) -> bool {
+        <[T]>::is_empty(self)
+    }
+}
 
 impl<T> IsEmpty for Option<T>
 where

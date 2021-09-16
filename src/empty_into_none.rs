@@ -114,6 +114,36 @@ use super::is_empty::IsEmpty;
 /// assert_eq!(None, none);
 /// ```
 ///
+/// ## Other Types
+/// Also works for other types that can be empty.
+///
+/// `String`:
+/// ```
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<String> = Some(String::new());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `&str`:
+/// ```
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<&str> = Some("");
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
+/// `&[T]` (or `slice`):
+/// ```
+/// use optcollection::EmptyIntoNone;
+///
+/// let some: Option<&[u8]> = Some("".as_bytes());
+/// let none = some.empty_into_none();
+/// assert_eq!(None, none);
+/// ```
+///
 /// [IsEmpty]: crate::is_empty::IsEmpty
 /// [std::collections]: https://doc.rust-lang.org/std/collections/
 pub trait EmptyIntoNone {
@@ -237,5 +267,26 @@ mod test {
         check(Some(VecDeque::from(vec!["a", "b", "c"])), true);
         check(Some(VecDeque::<&str>::new()), false);
         check(Option::<VecDeque<&str>>::None, false);
+    }
+
+    #[test]
+    fn string() {
+        check(Some(String::from("a")), true);
+        check(Some(String::new()), false);
+        check(Option::<String>::None, false);
+    }
+
+    #[test]
+    fn str() {
+        check(Some("a"), true);
+        check(Some(""), false);
+        check(Option::<String>::None, false);
+    }
+
+    #[test]
+    fn slice() {
+        check(Some("a".as_bytes()), true);
+        check(Some("".as_bytes()), false);
+        check(Option::<&[u8]>::None, false);
     }
 }
