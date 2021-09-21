@@ -10,7 +10,7 @@ use super::is_empty::IsEmpty;
 ///
 /// `Option::Some` with an empty `Vec` becomes `Option::None`.
 /// ```
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<Vec<&str>> = Some(vec![]);
 /// let none = some.empty_into_none();
@@ -19,7 +19,7 @@ use super::is_empty::IsEmpty;
 ///
 /// `Option::Some` with a non-empty `Vec` remains unchanged.
 /// ```
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some = Some(vec!["a", "b", "c"]);
 /// let still_some = some.clone().empty_into_none();
@@ -28,7 +28,7 @@ use super::is_empty::IsEmpty;
 ///
 /// `None` remains unchanged.
 /// ```
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let none: Option<Vec<&str>> = None;
 /// let still_none = none.empty_into_none();
@@ -41,7 +41,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::BinaryHeap;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<BinaryHeap<&str>> = Some(BinaryHeap::new());
 /// let none = some.empty_into_none();
@@ -52,7 +52,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::BTreeMap;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<BTreeMap<&str, &str>> = Some(BTreeMap::new());
 /// let none = some.empty_into_none();
@@ -63,7 +63,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::BTreeSet;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<BTreeSet<&str>> = Some(BTreeSet::new());
 /// let none = some.empty_into_none();
@@ -74,7 +74,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::HashMap;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<HashMap<&str, &str>> = Some(HashMap::new());
 /// let none = some.empty_into_none();
@@ -85,7 +85,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::HashSet;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<HashSet<&str>> = Some(HashSet::new());
 /// let none = some.empty_into_none();
@@ -96,7 +96,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::LinkedList;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<LinkedList<&str>> = Some(LinkedList::new());
 /// let none = some.empty_into_none();
@@ -107,7 +107,7 @@ use super::is_empty::IsEmpty;
 /// ```
 /// use std::collections::VecDeque;
 ///
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<VecDeque<&str>> = Some(VecDeque::new());
 /// let none = some.empty_into_none();
@@ -119,7 +119,7 @@ use super::is_empty::IsEmpty;
 ///
 /// `String`:
 /// ```
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<String> = Some(String::new());
 /// let none = some.empty_into_none();
@@ -128,7 +128,7 @@ use super::is_empty::IsEmpty;
 ///
 /// `&str`:
 /// ```
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<&str> = Some("");
 /// let none = some.empty_into_none();
@@ -137,7 +137,7 @@ use super::is_empty::IsEmpty;
 ///
 /// `&[T]` (or `slice`):
 /// ```
-/// use optcollection::EmptyIntoNone;
+/// use optempty::EmptyIntoNone;
 ///
 /// let some: Option<&[u8]> = Some("".as_bytes());
 /// let none = some.empty_into_none();

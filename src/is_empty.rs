@@ -40,7 +40,7 @@ simple_is_empty!(Vec; T);
 simple_is_empty!(VecDeque; T);
 
 // Some other things from the stdlib.
-// Implement more from here: https://doc.rust-lang.org/std/?search=is_empty
+// TODO: Implement more from here: https://doc.rust-lang.org/std/?search=is_empty
 
 simple_is_empty!(String);
 
@@ -65,24 +65,24 @@ where
     ///
     /// # Examples
     ///
-    /// Assumes you have `use optcollection::IsEmpty`.
+    /// Assumes you have `use optempty::IsEmpty`.
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let some: Option<Vec<&str>> = Some(vec!["a", "b", "c"]);
     /// assert_eq!(false, some.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let some_empty: Option<Vec<&str>> = Some(vec![]);
     /// assert_eq!(true, some_empty.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let none: Option<Vec<&str>> = None;
     /// assert_eq!(true, none.is_empty());
@@ -90,21 +90,21 @@ where
     ///
     /// Works nested:
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let some_some: Option<Option<Vec<&str>>> = Some(Some(vec!["a", "b", "c"]));
     /// assert_eq!(false, some_some.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let some_some_empty: Option<Option<Vec<&str>>> = Some(Some(vec![]));
     /// assert_eq!(true, some_some_empty.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let some_none: Option<Option<Vec<&str>>> = Some(None);
     /// assert_eq!(true, some_none.is_empty());
@@ -112,7 +112,7 @@ where
     ///
     /// Works mixed:
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok_some_empty: Result<Option<Vec<&str>>, &str> = Ok(Some(vec![]));
     /// assert_eq!(true, ok_some_empty.is_empty());
@@ -131,24 +131,24 @@ where
     ///
     /// # Examples
     ///
-    /// Assumes you have `use optcollection::IsEmpty`.
+    /// Assumes you have `use optempty::IsEmpty`.
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok: Result<Vec<&str>, &str> = Ok(vec!["a", "b", "c"]);
     /// assert_eq!(false, ok.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok: Result<Vec<&str>, &str> = Ok(vec![]);
     /// assert_eq!(true, ok.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let err: Result<Vec<&str>, &str> = Err("nope");
     /// assert_eq!(true, err.is_empty());
@@ -156,21 +156,21 @@ where
     ///
     /// Works nested:
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok_ok: Result<Result<Vec<&str>, &str>, &str> = Ok(Ok(vec!["a", "b", "c"]));
     /// assert_eq!(false, ok_ok.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok_ok_empty: Result<Result<Vec<&str>, &str>, &str> = Ok(Ok(vec![]));
     /// assert_eq!(true, ok_ok_empty.is_empty());
     /// ```
     ///
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok_err: Result<Result<Vec<&str>, &str>, &str> = Ok(Err("none"));
     /// assert_eq!(true, ok_err.is_empty());
@@ -178,7 +178,7 @@ where
     ///
     /// Works mixed:
     /// ```
-    /// # use optcollection::IsEmpty;
+    /// # use optempty::IsEmpty;
     /// #
     /// let ok_some_empty: Result<Option<Vec<&str>>, &str> = Ok(Some(vec![]));
     /// assert_eq!(true, ok_some_empty.is_empty());

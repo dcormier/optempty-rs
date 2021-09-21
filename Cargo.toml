@@ -1,15 +1,14 @@
 [package]
-name = "optcollection"
+name = "optempty"
 authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.5"
+version = "0.1.7"
 edition = "2018"
-description = "Tools for working with `Option<T>` where `T` is a collection type"
-homepage = "https://docs.rs/optcollection/"
-documentation = "https://docs.rs/optcollection/"
-repository = "https://github.com/dcormier/optcollection-rs"
+description = "Tools for working with `Option<T>` where `T` may be empty (e.g., an empty `String` or `Vec`)"
+documentation = "https://docs.rs/optempty/"
+repository = "https://github.com/dcormier/optempty-rs"
 license= "Apache-2.0"
 keywords = [
     # "result",

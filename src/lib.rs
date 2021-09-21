@@ -1,4 +1,5 @@
-//! Helpers for dealing with [`Option`]s of collections.
+//! Helpers for dealing with [`Option`]s of collections or other things (like
+//! `String`s) that may be empty.
 //!
 //! See usage examples at [`EmptyIntoNone`] and [`IsEmpty`].
 //!
