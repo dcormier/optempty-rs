@@ -3,7 +3,7 @@ use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedL
 /// Used to determine if a collection, or `Option<T>` or `Result<T, E>` (where
 /// `T` implements `IsEmpty`) is empty.
 ///
-/// `IsEmpty` is implemented for the standard collections.
+/// `IsEmpty` is implemented for the standard collections, and more.
 pub trait IsEmpty {
     /// Returns `true` if it is empty.
     fn is_empty(&self) -> bool;
@@ -65,8 +65,6 @@ where
     ///
     /// # Examples
     ///
-    /// Assumes you have `use optempty::IsEmpty`.
-    ///
     /// ```
     /// # use optempty::IsEmpty;
     /// #
@@ -126,12 +124,10 @@ impl<T, E> IsEmpty for Result<T, E>
 where
     T: IsEmpty,
 {
-    /// Returns `true` if `Result` is `Err` or `Some` with an empty `IsEmpty`,
+    /// Returns `true` if `Result` is `Some` with an empty `IsEmpty`,
     /// otherwise, `false`.
     ///
     /// # Examples
-    ///
-    /// Assumes you have `use optempty::IsEmpty`.
     ///
     /// ```
     /// # use optempty::IsEmpty;
@@ -151,7 +147,7 @@ where
     /// # use optempty::IsEmpty;
     /// #
     /// let err: Result<Vec<&str>, &str> = Err("nope");
-    /// assert_eq!(true, err.is_empty());
+    /// assert_eq!(false, err.is_empty());
     /// ```
     ///
     /// Works nested:
@@ -173,7 +169,7 @@ where
     /// # use optempty::IsEmpty;
     /// #
     /// let ok_err: Result<Result<Vec<&str>, &str>, &str> = Ok(Err("none"));
-    /// assert_eq!(true, ok_err.is_empty());
+    /// assert_eq!(false, ok_err.is_empty());
     /// ```
     ///
     /// Works mixed:
@@ -184,6 +180,6 @@ where
     /// assert_eq!(true, ok_some_empty.is_empty());
     /// ```
     fn is_empty(&self) -> bool {
-        self.as_ref().map(IsEmpty::is_empty).unwrap_or(true)
+        self.as_ref().map(IsEmpty::is_empty).unwrap_or(false)
     }
 }

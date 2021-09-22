@@ -4,7 +4,7 @@ authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.7"
+version = "0.1.8"
 edition = "2018"
 description = "Tools for working with `Option<T>` where `T` may be empty (e.g., an empty `String` or `Vec`)"
 documentation = "https://docs.rs/optempty/"
