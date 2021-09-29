@@ -1,7 +1,13 @@
-//! Helpers for dealing with `Option`s of collections or other things (like
-//! `String`s) that may be empty.
+//! Helpers for dealing with `Option`s/`Result`s of collections or other things
+//! (like `String`s) that may be empty.
 //!
 //! # Examples
+//!
+//! Always start by including the traits:
+//!
+//! ```
+//! use optempty::*;
+//! ```
 //!
 //! These examples only show `Vec<T>`, but they support any type that implements
 //! [`IsEmpty`].
@@ -10,8 +16,8 @@
 //!
 //! `Some` with an empty `Vec` becomes `None`.
 //! ```
-//! # use optempty::EmptyIntoNone;
-//! #
+//! use optempty::*;
+//!
 //! let some: Option<Vec<&str>> = Some(vec![]);
 //! let none = some.empty_into_none();
 //! assert_eq!(None, none);
@@ -19,7 +25,7 @@
 //!
 //! `Some` with a non-empty `Vec` remains unchanged.
 //! ```
-//! # use optempty::EmptyIntoNone;
+//! # use optempty::*;
 //! #
 //! let some = Some(vec!["a", "b", "c"]);
 //! let still_some = some.clone().empty_into_none();
@@ -28,7 +34,7 @@
 //!
 //! `None` remains unchanged.
 //! ```
-//! # use optempty::EmptyIntoNone;
+//! # use optempty::*;
 //! #
 //! let none: Option<Vec<&str>> = None;
 //! let still_none = none.empty_into_none();
@@ -39,8 +45,8 @@
 //!
 //! `Ok` with an empty `Vec` becomes `Err`.
 //! ```
-//! # use optempty::EmptyIntoErr;
-//! #
+//! use optempty::*;
+//!
 //! let ok: Result<Vec<&str>, &str> = Ok(vec![]);
 //! let err = ok.empty_into_err(|| "was empty");
 //! assert_eq!(Err("was empty"), err);
@@ -48,7 +54,7 @@
 //!
 //! `Ok` with a non-empty `Vec` remains unchanged.
 //! ```
-//! # use optempty::EmptyIntoErr;
+//! # use optempty::*;
 //! #
 //! let ok = Ok(vec!["a", "b", "c"]);
 //! let still_ok = ok.empty_into_err(|| "was empty");
@@ -57,7 +63,7 @@
 //!
 //! `Err` remains unchanged.
 //! ```
-//! # use optempty::EmptyIntoErr;
+//! # use optempty::*;
 //! #
 //! let err: Result<Vec<&str>, &str> = Err("failed");
 //! let still_err = err.empty_into_err(|| "was empty");

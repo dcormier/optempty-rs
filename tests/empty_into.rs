@@ -1,6 +1,6 @@
-use std::collections::{BinaryHeap, LinkedList, VecDeque};
+extern crate alloc;
+use alloc::collections::{BTreeMap, BTreeSet, BinaryHeap, LinkedList, VecDeque};
 
-use maplit::*;
 use optempty::{EmptyIntoErr, EmptyIntoNone};
 
 fn check_option<T>(c: T)
@@ -92,7 +92,7 @@ fn binary_heap() {
 
 #[test]
 fn btree_map() {
-    let mut btm = btreemap! {};
+    let mut btm = BTreeMap::new();
     check(btm.clone());
 
     btm.insert("a", 1);
@@ -105,7 +105,7 @@ fn btree_map() {
 
 #[test]
 fn btree_set() {
-    let mut bts = btreeset! {};
+    let mut bts = BTreeSet::new();
     check(bts.clone());
 
     bts.insert("a");
@@ -119,7 +119,7 @@ fn btree_set() {
 #[cfg(feature = "std")]
 #[test]
 fn hash_map() {
-    let mut hm = hashmap! {};
+    let mut hm = std::collections::HashMap::new();
     check(hm.clone());
 
     hm.insert("a", 1);
@@ -133,7 +133,7 @@ fn hash_map() {
 #[cfg(feature = "std")]
 #[test]
 fn hash_set() {
-    let mut hs = hashset! {};
+    let mut hs = std::collections::HashSet::new();
     check(hs.clone());
 
     hs.insert("a");
