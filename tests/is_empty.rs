@@ -96,3 +96,15 @@ fn slice() {
     assert!(IsEmpty::is_empty(&"".as_bytes()));
     assert!(!IsEmpty::is_empty(&"a".as_bytes()));
 }
+
+#[cfg(feature = "serdejson")]
+#[test]
+fn serde_json_map() {
+    use serde_json::Map;
+
+    let mut map = Map::new();
+    assert!(IsEmpty::is_empty(&map));
+
+    map.insert("a".into(), 1.into());
+    assert!(!IsEmpty::is_empty(&map));
+}

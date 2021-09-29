@@ -183,3 +183,15 @@ where
         self.as_ref().map(IsEmpty::is_empty).unwrap_or(false)
     }
 }
+
+// serde_json support
+// https://github.com/dcormier/optempty-rs/issues/2
+#[cfg(feature = "serdejson")]
+use serde_json::{Map, Value};
+
+#[cfg(feature = "serdejson")]
+impl IsEmpty for Map<String, Value> {
+    fn is_empty(&self) -> bool {
+        Map::is_empty(self)
+    }
+}

@@ -183,18 +183,37 @@ fn vec_deque() {
 
 #[test]
 fn string() {
-    check(String::from("a"));
     check(String::new());
+    check(String::from("a"));
+    check(String::from("abc"));
 }
 
 #[test]
 fn str() {
-    check("a");
     check("");
+    check("a");
+    check("abc");
 }
 
 #[test]
 fn slice() {
-    check("a".as_bytes());
     check("".as_bytes());
+    check("a".as_bytes());
+    check("abc".as_bytes());
+}
+
+#[cfg(feature = "serdejson")]
+#[test]
+fn serde_json_map() {
+    use serde_json::Map;
+
+    let mut map = Map::new();
+    check(map.clone());
+
+    map.insert("a".into(), 1.into());
+    check(map.clone());
+
+    map.insert("b".into(), 2.into());
+    map.insert("c".into(), 3.into());
+    check(map);
 }

@@ -4,9 +4,10 @@ authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.8"
+version = "0.1.9"
 edition = "2018"
-description = "Tools for working with `Option<T>` where `T` may be empty (e.g., an empty `String` or `Vec`)"
+resolver = "2"
+description = "Tools for working types that may be empty. E.g., an empty `String`, `Vec`, `HashMap`, etc."
 documentation = "https://docs.rs/optempty/"
 repository = "https://github.com/dcormier/optempty-rs"
 license= "Apache-2.0"
@@ -34,6 +35,11 @@ categories = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+serde_json = { version = "1", optional = true }
 
 [dev-dependencies]
 maplit = "1"
+
+[features]
+default = []
+serdejson = ["serde_json"]
