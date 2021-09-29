@@ -1,13 +1,11 @@
-use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap, HashSet, LinkedList, VecDeque};
+extern crate alloc;
+use alloc::{
+    collections::{BTreeMap, BTreeSet, BinaryHeap, LinkedList, VecDeque},
+    string::String,
+    vec::Vec,
+};
 
-/// Used to determine if a collection, or `Option<T>` or `Result<T, E>` (where
-/// `T` implements `IsEmpty`) is empty.
-///
-/// `IsEmpty` is implemented for the standard collections, and more.
-pub trait IsEmpty {
-    /// Returns `true` if it is empty.
-    fn is_empty(&self) -> bool;
-}
+use super::IsEmpty;
 
 /// Just wraps the existing `is_empty(&self)` method on the type.
 // Because you can't spell `simple` without `impl`.
@@ -33,8 +31,6 @@ macro_rules! simple_is_empty {
 simple_is_empty!(BinaryHeap; T);
 simple_is_empty!(BTreeMap; K, V);
 simple_is_empty!(BTreeSet; T);
-simple_is_empty!(HashMap; K, V);
-simple_is_empty!(HashSet; T);
 simple_is_empty!(LinkedList; T);
 simple_is_empty!(Vec; T);
 simple_is_empty!(VecDeque; T);
@@ -181,17 +177,5 @@ where
     /// ```
     fn is_empty(&self) -> bool {
         self.as_ref().map(IsEmpty::is_empty).unwrap_or(false)
-    }
-}
-
-// serde_json support
-// https://github.com/dcormier/optempty-rs/issues/2
-#[cfg(feature = "serdejson")]
-use serde_json::{Map, Value};
-
-#[cfg(feature = "serdejson")]
-impl IsEmpty for Map<String, Value> {
-    fn is_empty(&self) -> bool {
-        Map::is_empty(self)
     }
 }

@@ -4,7 +4,7 @@ authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.9"
+version = "0.1.10"
 edition = "2018"
 resolver = "2"
 description = "Tools for working types that may be empty. E.g., an empty `String`, `Vec`, `HashMap`, etc."
@@ -30,9 +30,14 @@ keywords = [
 categories = [
     "data-structures",
     "rust-patterns",
+    "no-std",
 ]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[package.metadata.docs.rs]
+all-features = true
+
+[package.metadata.playground]
+all-features = true
 
 [dependencies]
 serde_json = { version = "1", optional = true }
@@ -41,5 +46,6 @@ serde_json = { version = "1", optional = true }
 maplit = "1"
 
 [features]
-default = []
+default = ["std"]
+std = []
 serdejson = ["serde_json"]

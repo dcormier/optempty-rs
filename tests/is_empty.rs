@@ -1,11 +1,10 @@
-use maplit::{btreemap, btreeset, hashmap, hashset};
+extern crate alloc;
+
 use optempty::IsEmpty;
 
 #[test]
 fn binary_heap() {
-    use std::collections::BinaryHeap;
-
-    let mut bh: BinaryHeap<&str> = BinaryHeap::new();
+    let mut bh = alloc::collections::BinaryHeap::new();
     assert!(IsEmpty::is_empty(&bh));
 
     bh.push("a");
@@ -14,7 +13,7 @@ fn binary_heap() {
 
 #[test]
 fn btree_map() {
-    let mut btm = btreemap! {};
+    let mut btm = alloc::collections::BTreeMap::new();
     assert!(IsEmpty::is_empty(&btm));
 
     btm.insert("a", "b");
@@ -23,25 +22,27 @@ fn btree_map() {
 
 #[test]
 fn btree_set() {
-    let mut bts = btreeset! {};
+    let mut bts = alloc::collections::BTreeSet::new();
     assert!(IsEmpty::is_empty(&bts));
 
     bts.insert("a");
     assert!(!IsEmpty::is_empty(&bts));
 }
 
+#[cfg(feature = "std")]
 #[test]
 fn hash_map() {
-    let mut hm = hashmap! {};
+    let mut hm = std::collections::HashMap::new();
     assert!(IsEmpty::is_empty(&hm));
 
     hm.insert("a", "b");
     assert!(!IsEmpty::is_empty(&hm));
 }
 
+#[cfg(feature = "std")]
 #[test]
 fn hash_set() {
-    let mut hs = hashset! {};
+    let mut hs = std::collections::HashSet::new();
     assert!(IsEmpty::is_empty(&hs));
 
     hs.insert("a");
@@ -50,9 +51,7 @@ fn hash_set() {
 
 #[test]
 fn linked_list() {
-    use std::collections::LinkedList;
-
-    let mut ll = LinkedList::new();
+    let mut ll = alloc::collections::LinkedList::new();
     assert!(IsEmpty::is_empty(&ll));
 
     ll.push_back("a");
@@ -70,9 +69,7 @@ fn vec() {
 
 #[test]
 fn vec_deque() {
-    use std::collections::VecDeque;
-
-    let mut vd = VecDeque::new();
+    let mut vd = alloc::collections::VecDeque::new();
     assert!(IsEmpty::is_empty(&vd));
 
     vd.push_back("a");

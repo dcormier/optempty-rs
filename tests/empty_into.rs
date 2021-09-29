@@ -116,6 +116,7 @@ fn btree_set() {
     check(bts);
 }
 
+#[cfg(feature = "std")]
 #[test]
 fn hash_map() {
     let mut hm = hashmap! {};
@@ -129,6 +130,7 @@ fn hash_map() {
     check(hm.clone());
 }
 
+#[cfg(feature = "std")]
 #[test]
 fn hash_set() {
     let mut hs = hashset! {};
