@@ -79,7 +79,7 @@
 //!
 //! Available features are:
 //! * `std`
-//!   * Adds support for types in `std::collections` to types from `alloc`.
+//!   * Adds support for types in `std::collections` in addition to types from `alloc`.
 //! * `serdejson`
 //!   * Adds support for [`serde_json::Map`]
 //!

@@ -5,8 +5,7 @@ authors = [
     "Michael Hanley",
 ]
 version = "0.1.11"
-edition = "2018"
-resolver = "2"
+edition = "2021"
 description = "Tools for working types that may be empty. E.g., an empty `String`, `Vec`, `HashMap`, etc."
 documentation = "https://docs.rs/optempty/"
 repository = "https://github.com/dcormier/optempty-rs"
@@ -32,6 +31,9 @@ categories = [
     "rust-patterns",
     "no-std",
 ]
+exclude = [
+    "check.sh"
+]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -40,7 +42,7 @@ all-features = true
 all-features = true
 
 [dependencies]
-serde_json = { version = "1", optional = true }
+serde_json = { version = "1", default-features = false, features = ["alloc"], optional = true }
 
 [dev-dependencies]
 
