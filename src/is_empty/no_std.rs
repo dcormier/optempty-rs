@@ -1,4 +1,5 @@
 extern crate alloc;
+
 use alloc::{
     collections::{BTreeMap, BTreeSet, BinaryHeap, LinkedList, VecDeque},
     string::String,
@@ -6,6 +7,15 @@ use alloc::{
 };
 
 use super::IsEmpty;
+
+impl<T> IsEmpty for &T
+where
+    T: IsEmpty,
+{
+    fn is_empty(&self) -> bool {
+        IsEmpty::is_empty(*self)
+    }
+}
 
 /// Just wraps the existing `is_empty(&self)` method on the type.
 // Because you can't spell `simple` without `impl`.

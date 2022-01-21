@@ -3,70 +3,91 @@ use alloc::collections::{BTreeMap, BTreeSet, BinaryHeap, LinkedList, VecDeque};
 
 use optempty::{EmptyIntoErr, EmptyIntoNone};
 
-fn check_option<T>(c: T)
+fn check_option<T>(col: T)
 where
     T: optempty::is_empty::IsEmpty + std::fmt::Debug + Clone,
 {
-    let is_empty = c.is_empty();
-    let col = Some(c);
-    let into_none = col.clone().empty_into_none();
-    if is_empty {
-        assert!(
-            into_none.is_none(),
-            "Should be None: {:?}.empty_into_none()\n\
-             Got:            {:?}",
-            col,
-            into_none,
-        );
-    } else {
-        assert!(
-            into_none.is_some(),
-            "Should be Some: {:?}.empty_into_none()\n\
-             Got:            {:?}",
-            col,
-            into_none,
-        );
+    fn internal_check<U>(col: Option<U>, inner_is_empty: bool)
+    where
+        U: optempty::is_empty::IsEmpty + std::fmt::Debug + Clone,
+    {
+        let col = Some(col);
+        let into_none = col.clone().empty_into_none();
+        if inner_is_empty {
+            assert!(
+                into_none.is_none(),
+                "Should be None: {:?}.empty_into_none()\n\
+                 Got:            {:?}",
+                col,
+                into_none,
+            );
+        } else {
+            assert!(
+                into_none.is_some(),
+                "Should be Some: {:?}.empty_into_none()\n\
+                 Got:            {:?}",
+                col,
+                into_none,
+            );
+        }
+
+        assert!(Option::<U>::None.empty_into_none().is_none());
     }
 
-    assert!(Option::<T>::None.empty_into_none().is_none());
+    let inner_is_empty = col.is_empty();
+    // Check borrowed values
+    internal_check(Some(&col), inner_is_empty);
+    // Check owned values
+    internal_check(Some(col), inner_is_empty);
 }
 
 fn check_result<T>(col: T)
 where
     T: optempty::is_empty::IsEmpty + std::fmt::Debug + Clone,
 {
-    fn empty_op() -> &'static str {
-        "was empty"
-    }
+    fn internal_check<U, E>(col: Result<U, E>, inner_is_empty: bool)
+    where
+        U: optempty::is_empty::IsEmpty + std::fmt::Debug + Clone,
+        E: std::fmt::Debug + Clone,
+    {
+        fn empty_op() -> &'static str {
+            "was empty"
+        }
 
-    let is_empty = col.is_empty();
-    let col = Ok(col);
-    let into_err = col.clone().empty_into_err(empty_op);
-    if is_empty {
-        assert_eq!(
-            Result::<&str, _>::Err("was empty"),
-            Result::<&str, _>::Err(into_err.clone().unwrap_err()),
-            "Should be Err(\"was empty\"): {:?}.empty_into_err(|| \"was empty\")\n\
+        let col = Ok(col);
+        let into_err = col.clone().empty_into_err(empty_op);
+        if inner_is_empty {
+            assert_eq!(
+                Result::<&str, _>::Err("was empty"),
+                Result::<&str, _>::Err(into_err.clone().unwrap_err()),
+                "Should be Err(\"was empty\"): {:?}.empty_into_err(|| \"was empty\")\n\
              Got:                          {:?}",
-            col,
-            into_err,
-        );
-    } else {
-        assert!(
-            into_err.is_ok(),
-            "Should be Ok: {:?}.empty_into_err(|| \"was empty\")\n\
+                col,
+                into_err,
+            );
+        } else {
+            assert!(
+                into_err.is_ok(),
+                "Should be Ok: {:?}.empty_into_err(|| \"was empty\")\n\
              Got:          {:?}",
-            col,
-            into_err,
+                col,
+                into_err,
+            );
+        }
+
+        let failed: Result<U, &str> = Err("failed");
+        assert_eq!(
+            failed.clone().unwrap_err(),
+            failed.empty_into_err(empty_op).unwrap_err(),
+            "Err should be unchanged (not treated as empty)",
         );
     }
 
-    let failed: Result<T, &str> = Err("failed");
-    assert_eq!(
-        failed.clone().unwrap_err(),
-        failed.empty_into_err(empty_op).unwrap_err(),
-        "Err should be unchanged (not treated as empty)",
-    );
+    let inner_is_empty = col.is_empty();
+    // Check borrowed values
+    internal_check::<_, &str>(Ok(&col), inner_is_empty);
+    // Check owned values
+    internal_check::<_, &str>(Ok(col), inner_is_empty);
 }
 
 fn check<T>(col: T)
