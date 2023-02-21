@@ -1,10 +1,14 @@
 mod no_std;
+#[cfg(all(feature = "querymap", feature = "std"))]
+mod query_map;
 #[cfg(feature = "serdejson")]
 mod serde_json;
 #[cfg(feature = "std")]
 mod std;
 
 pub use self::no_std::*;
+#[cfg(all(feature = "querymap", feature = "std"))]
+pub use self::query_map::*;
 #[cfg(feature = "serdejson")]
 pub use self::serde_json::*;
 #[cfg(feature = "std")]

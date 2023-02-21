@@ -225,6 +225,27 @@ fn slice() {
     check("abc".as_bytes());
 }
 
+#[cfg(all(feature = "querymap", feature = "std"))]
+#[test]
+fn query_map_map() {
+    use std::collections::HashMap;
+
+    use query_map::QueryMap;
+
+    let map = QueryMap::default();
+    check(map);
+
+    let map = QueryMap::from(HashMap::from([("a".to_string(), vec![1.to_string()])]));
+    check(map);
+
+    let map = QueryMap::from(HashMap::from([
+        ("a".to_string(), vec![1.to_string()]),
+        ("b".to_string(), vec![2.to_string()]),
+        ("c".to_string(), vec![3.to_string()]),
+    ]));
+    check(map);
+}
+
 #[cfg(feature = "serdejson")]
 #[test]
 fn serde_json_map() {

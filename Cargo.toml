@@ -4,7 +4,7 @@ authors = [
     "Daniel Cormier",
     "Michael Hanley",
 ]
-version = "0.1.12"
+version = "0.1.13"
 edition = "2021"
 description = "Tools for working types that may be empty. E.g., an empty `String`, `Vec`, `HashMap`, etc."
 documentation = "https://docs.rs/optempty/"
@@ -32,7 +32,8 @@ categories = [
     "no-std",
 ]
 exclude = [
-    "check.sh"
+    ".gitignore",
+    "check.sh",
 ]
 
 [package.metadata.docs.rs]
@@ -43,6 +44,7 @@ all-features = true
 
 [dependencies]
 serde_json = { version = "1", default-features = false, features = ["alloc"], optional = true }
+query_map = { version = "0", optional = true }
 
 [dev-dependencies]
 
@@ -50,3 +52,4 @@ serde_json = { version = "1", default-features = false, features = ["alloc"], op
 default = ["std"]
 std = []
 serdejson = ["serde_json"]
+querymap = ["query_map", "std"]

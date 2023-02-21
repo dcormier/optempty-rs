@@ -78,10 +78,12 @@
 //! # Features
 //!
 //! Available features are:
-//! * `std`
-//!   * Adds support for types in `std::collections` in addition to types from `alloc`.
+//! * `querymap`
+//!   * Adds support for [`query_map::QueryMap`]
 //! * `serdejson`
 //!   * Adds support for [`serde_json::Map`]
+//! * `std`
+//!   * Adds support for types in `std::collections` in addition to types from `alloc`.
 //!
 //! Default features:
 //! * `std`
