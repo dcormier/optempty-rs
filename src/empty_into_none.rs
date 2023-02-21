@@ -51,6 +51,6 @@ where
     T: IsEmpty,
 {
     fn empty_into_none(self) -> Self {
-        self.and_then(|col| (!col.is_empty()).then(|| col))
+        self.and_then(|col| (!col.is_empty()).then_some(col))
     }
 }

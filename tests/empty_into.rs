@@ -100,7 +100,7 @@ where
 
 #[test]
 fn binary_heap() {
-    let mut bh = BinaryHeap::new();
+    let mut bh = BinaryHeap::default();
     check(bh.clone());
 
     bh.push("a");
@@ -113,7 +113,7 @@ fn binary_heap() {
 
 #[test]
 fn btree_map() {
-    let mut btm = BTreeMap::new();
+    let mut btm = BTreeMap::default();
     check(btm.clone());
 
     btm.insert("a", 1);
@@ -126,7 +126,7 @@ fn btree_map() {
 
 #[test]
 fn btree_set() {
-    let mut bts = BTreeSet::new();
+    let mut bts = BTreeSet::default();
     check(bts.clone());
 
     bts.insert("a");
@@ -140,7 +140,7 @@ fn btree_set() {
 #[cfg(feature = "std")]
 #[test]
 fn hash_map() {
-    let mut hm = std::collections::HashMap::new();
+    let mut hm = std::collections::HashMap::default();
     check(hm.clone());
 
     hm.insert("a", 1);
@@ -154,7 +154,7 @@ fn hash_map() {
 #[cfg(feature = "std")]
 #[test]
 fn hash_set() {
-    let mut hs = std::collections::HashSet::new();
+    let mut hs = std::collections::HashSet::default();
     check(hs.clone());
 
     hs.insert("a");
@@ -167,7 +167,7 @@ fn hash_set() {
 
 #[test]
 fn linked_list() {
-    let mut ll = LinkedList::new();
+    let mut ll = LinkedList::default();
     check(ll.clone());
 
     ll.push_back("a");
@@ -193,7 +193,7 @@ fn vec() {
 
 #[test]
 fn vec_deque() {
-    let mut vd = VecDeque::new();
+    let mut vd = VecDeque::default();
     check(vd.clone());
 
     vd.push_back("a");
@@ -206,7 +206,7 @@ fn vec_deque() {
 
 #[test]
 fn string() {
-    check(String::new());
+    check(String::default());
     check(String::from("a"));
     check(String::from("abc"));
 }
@@ -230,7 +230,7 @@ fn slice() {
 fn serde_json_map() {
     use serde_json::Map;
 
-    let mut map = Map::new();
+    let mut map = Map::default();
     check(map.clone());
 
     map.insert("a".into(), 1.into());

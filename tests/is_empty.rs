@@ -4,7 +4,7 @@ use optempty::IsEmpty;
 
 #[test]
 fn binary_heap() {
-    let mut bh = alloc::collections::BinaryHeap::new();
+    let mut bh = alloc::collections::BinaryHeap::default();
     assert!(IsEmpty::is_empty(&bh));
 
     bh.push("a");
@@ -13,7 +13,7 @@ fn binary_heap() {
 
 #[test]
 fn btree_map() {
-    let mut btm = alloc::collections::BTreeMap::new();
+    let mut btm = alloc::collections::BTreeMap::default();
     assert!(IsEmpty::is_empty(&btm));
 
     btm.insert("a", "b");
@@ -22,7 +22,7 @@ fn btree_map() {
 
 #[test]
 fn btree_set() {
-    let mut bts = alloc::collections::BTreeSet::new();
+    let mut bts = alloc::collections::BTreeSet::default();
     assert!(IsEmpty::is_empty(&bts));
 
     bts.insert("a");
@@ -32,7 +32,7 @@ fn btree_set() {
 #[cfg(feature = "std")]
 #[test]
 fn hash_map() {
-    let mut hm = std::collections::HashMap::new();
+    let mut hm = std::collections::HashMap::default();
     assert!(IsEmpty::is_empty(&hm));
 
     hm.insert("a", "b");
@@ -42,7 +42,7 @@ fn hash_map() {
 #[cfg(feature = "std")]
 #[test]
 fn hash_set() {
-    let mut hs = std::collections::HashSet::new();
+    let mut hs = std::collections::HashSet::default();
     assert!(IsEmpty::is_empty(&hs));
 
     hs.insert("a");
@@ -51,7 +51,7 @@ fn hash_set() {
 
 #[test]
 fn linked_list() {
-    let mut ll = alloc::collections::LinkedList::new();
+    let mut ll = alloc::collections::LinkedList::default();
     assert!(IsEmpty::is_empty(&ll));
 
     ll.push_back("a");
@@ -69,7 +69,7 @@ fn vec() {
 
 #[test]
 fn vec_deque() {
-    let mut vd = alloc::collections::VecDeque::new();
+    let mut vd = alloc::collections::VecDeque::default();
     assert!(IsEmpty::is_empty(&vd));
 
     vd.push_back("a");
@@ -78,7 +78,7 @@ fn vec_deque() {
 
 #[test]
 fn string() {
-    assert!(IsEmpty::is_empty(&String::new()));
+    assert!(IsEmpty::is_empty(&String::default()));
     assert!(!IsEmpty::is_empty(&String::from("a")));
 }
 
@@ -99,7 +99,7 @@ fn slice() {
 fn serde_json_map() {
     use serde_json::Map;
 
-    let mut map = Map::new();
+    let mut map = Map::default();
     assert!(IsEmpty::is_empty(&map));
 
     map.insert("a".into(), 1.into());
